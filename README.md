@@ -1,6 +1,19 @@
-# Face-Mask-Detection
-Face Mask Detection With Deep Learning
+# Face Mask Detection System
 
-![Alt Text](https://i.giphy.com/media/Pj08zaSxNV2zBjPwer/giphy.webp)
+A Streamlit web application that detects whether people in images are wearing face masks.
 
-https://www.youtube.com/watch?v=rsuNcQQgYy0
+![Demo](samples/demo.gif)
+
+## Features
+
+- Detects multiple faces in an image
+- Classifies each face as "Mask" or "No Mask"
+- Adjustable confidence threshold
+- Mobile-friendly interface
+
+## Installation
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/yourusername/face-mask-detector.git
+   cd face-mask-detector
