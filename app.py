@@ -38,15 +38,29 @@ with st.sidebar:
 
 @st.cache_resource
 def load_models():
-    """Load face detection and mask classification models"""
     # Load face detector
     face_detector_dir = "face_detector"
     prototxt = os.path.join(face_detector_dir, "deploy.prototxt")
     weights = os.path.join(face_detector_dir, "res10_300x300_ssd_iter_140000.caffemodel")
-    net = cv2.dnn.readNet(prototxt, weights)
+    
+    try:
+        net = cv2.dnn.readNet(prototxt, weights)
+    except Exception as e:
+        st.error(f"Failed to load face detector: {str(e)}")
+        st.stop()
     
     # Load mask classifier
-    model = load_model("mask_detector.model")
+    model_path = "mask_detector.model"
+    if not os.path.exists(model_path):
+        st.error(f"Model file not found at: {os.path.abspath(model_path)}")
+        st.stop()
+    
+    try:
+        model = load_model(model_path)
+    except Exception as e:
+        st.error(f"Failed to load mask detector model: {str(e)}")
+        st.stop()
+    
     return net, model
 
 def detect_masks(image, net, model, confidence_threshold=0.5):
@@ -100,6 +114,11 @@ def detect_masks(image, net, model, confidence_threshold=0.5):
 
 # Main application logic
 def main():
+    try:
+        net, model = load_models()
+    except Exception as e:
+        st.error(f"Failed to initialize models: {str(e)}")
+        st.stop()
     net, model = load_models()
     
     uploaded_file = st.file_uploader(
