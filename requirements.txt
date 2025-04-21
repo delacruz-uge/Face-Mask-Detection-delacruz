@@ -1,5 +1,6 @@
 streamlit>=1.0.0
 opencv-python-headless>=4.5.0
-tensorflow>=2.0.0
+tensorflow<2.16  # TensorFlow 2.15 contains Keras 2
 numpy>=1.19.0
 Pillow>=8.0.0
+pip install -r requirements.txt --force-reinstall
